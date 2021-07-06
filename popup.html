@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="button.css" />
+  </head>
+  <body>
+    <h2>Activate the extension on current page</h2>
+    <button id="activateBtn">Activate</button>
+    <button id="resetDefault">Reset Keybindings</button>
+
+    <div id="info"></div>
+
+    <div style="display: flex; flex-direction: row; width: 100%">
+      <div style="display: flex; flex-direction: column; width: 50%">
+        <div class="input-row">
+          <label for="short-primary">Primary Tab</label>
+          <input
+            type="text"
+            id="short-primary"
+            name="short-primary"
+            maxlength="1"
+          />
+        </div>
+
+        <div class="input-row">
+          <label for="short-background">Background Tab</label>
+          <input
+            type="text"
+            id="short-background"
+            name="short-background"
+            maxlength="1"
+          />
+        </div>
+
+        <div class="input-row">
+          <label for="short-size">Size Tab</label>
+          <input type="text" id="short-size" name="short-size" maxlength="1" />
+        </div>
+
+        <div class="input-row">
+          <label for="short-layout">Layout Tab</label>
+          <input
+            type="text"
+            id="short-layout"
+            name="short-layout"
+            maxlength="1"
+          />
+        </div>
+
+        <div class="input-row">
+          <label for="short-typo">Typography Tab</label>
+          <input type="text" id="short-typo" name="short-typo" maxlength="1" />
+        </div>
+
+        <div class="input-row">
+          <label for="short-borders">Borders Tab</label>
+          <input
+            type="text"
+            id="short-borders"
+            name="short-borders"
+            maxlength="1"
+          />
+        </div>
+        <div class="input-row">
+          <label for="short-effects">Effects Tab</label>
+          <input
+            type="text"
+            id="short-effects"
+            name="short-effects"
+            maxlength="1"
+          />
+        </div>
+        <div class="input-row">
+          <label for="short-customcss">Custom CSS Tab</label>
+          <input
+            type="text"
+            id="short-customcss"
+            name="short-customcss"
+            maxlength="1"
+          />
+        </div>
+        <div class="input-row">
+          <label for="short-customjs">Custom JS Tab</label>
+          <input
+            type="text"
+            id="short-customjs"
+            name="short-customjs"
+            maxlength="1"
+          />
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; width: 50%">
+        <div class="input-row">
+          <label for="short-domexpand">DOM tree expanded</label>
+          <input
+            type="text"
+            id="short-domexpand"
+            name="short-domexpand"
+            maxlength="1"
+          />
+        </div>
+        <div class="input-row">
+          <label for="short-domcollapse">DOM tree collapse</label>
+          <input
+            type="text"
+            id="short-domcollapse"
+            name="short-domcollapse"
+            maxlength="1"
+          />
+        </div>
+        <div class="input-row">
+          <label for="short-styles">styles Tab</label>
+          <input
+            type="text"
+            id="short-styles"
+            name="short-styles"
+            maxlength="1"
+          />
+        </div>
+        <div class="input-row">
+          <label for="short-cssStyles">styles CSS Tab</label>
+          <input
+            type="text"
+            id="short-cssStyles"
+            name="short-cssStyles"
+            maxlength="1"
+          />
+        </div>
+      </div>
+    </div>
+
+    <button id="applyChanges">Apply</button>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
