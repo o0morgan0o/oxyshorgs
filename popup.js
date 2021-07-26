@@ -1,4 +1,4 @@
-let keyoptions = ["short-primary", "short-background", "short-size", "short-layout", "short-typo", "short-borders", "short-effects", "short-customcss", "short-customjs", "short-domexpand", "short-domcollapse", "short-styles", "short-cssStyles"]
+let keyoptions = ["short-primary", "short-background", "short-size", "short-layout", "short-typo", "short-borders", "short-effects", "short-customcss", "short-customjs", "short-domexpand", "short-domcollapse", "short-styles", "short-cssStyles", "short-selectors"]
 getCurrentState().then(data => { applyStateToUI(data) })
 
 // restore saved keybindings

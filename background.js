@@ -4,6 +4,8 @@ let tabId
 const initialState = { isActive: false }
 chrome.storage.sync.set({ state: initialState })
 
+
+
 const defaultKeybindings = [
     {
         key: "p",
@@ -57,12 +59,26 @@ const defaultKeybindings = [
         key: "y",
         id: "short-cssStyles",
     },
+    {
+        key: "S",
+        id: "short-selectors"
+    }
 
 ]
 
 loadDefaultKeybindingsIfNoLocalStorage()
 
 setDefaultKeybindings()
+
+chrome.webNavigation.onCommitted.addListener(({ tabId, frameId }) => {
+    console.log(`inside ${tabId} , ${frameId}`)
+    if (frameId !== 0) return
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        function: launchPageGlobalScript
+    })
+
+})
 
 chrome.runtime.onMessage.addListener(function (message) {
     switch (message.action) {
@@ -122,7 +138,15 @@ async function launchPageGlobalScript() {
 
     console.log('adding event listener...', mState, keyBindings)
     mListener = document.addEventListener('keydown', keyDetector)
-    mListenerIframe = document.getElementById('ct-artificial-viewport').contentWindow.document.addEventListener('keydown', keyDetector)
+
+    // because the iframe is not always ready, we try to add event listener each 2 seconds.
+    let refreshId = setInterval(function () {
+        if (document.getElementById("ct-artificial-viewport")) {
+            mListenerIframe = document.getElementById('ct-artificial-viewport').contentWindow.document.addEventListener('keydown', keyDetector)
+            clearInterval(refreshId)
+        }
+        console.log('iframe unreachable, retry in 2000 ms...')
+    }, 2000)
 
     function keyDetector(key) {
         console.log('key detection ...', key.key)
@@ -176,6 +200,9 @@ async function launchPageGlobalScript() {
             case keyBindings[7].key:
                 document.getElementsByClassName("oxygen-sidebar-tabs-tab")[1].click()
                 document.querySelector(`[ng-click="switchTab('advanced', 'custom-css')"]`).click()
+                setTimeout(function () {
+                    document.querySelector(`[ng-click="toggleSidebar()"]`).click()
+                }, 100)
                 break;
             case keyBindings[8].key:
                 document.getElementsByClassName("oxygen-sidebar-tabs-tab")[1].click()
@@ -196,6 +223,11 @@ async function launchPageGlobalScript() {
                 break;
             case keyBindings[12].key:
                 document.querySelector(`[ng-click="switchTab('sidePanel','styleSheets');"]`).click()
+                document.querySelector(`[ng-click="iframeScope.expandedFolder[0]=!iframeScope.expandedFolder[0]"]`).click()
+                break;
+            case keyBindings[13].key:
+                document.querySelector(`[ng-click="switchTab('sidePanel','selectors');"]`).click()
+                document.querySelector(`[ng-click="iframeScope.expandedSelectorFolder[0]=!iframeScope.expandedSelectorFolder[0]"]`).click()
                 break;
             default:
                 console.log('no shortcut')
